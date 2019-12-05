@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { QuizData } from './QuizData';
 import './Quiz.css';
-import { Layout, Button } from 'antd';
-
-const { Header, Footer, Content } = Layout;
+import { Layout, Button, Typography } from 'antd';
+const { Header, Content } = Layout;
+const { Title } = Typography;
 export class Quiz extends Component {
 
     state = {
@@ -28,22 +28,47 @@ export class Quiz extends Component {
     componentDidMount() {
         this.loadQuiz();
     }
+    nextQuestionHandler = () => {
+        this.setState({
+            currentQuestion: this.state.currentQuestion + 1
+        })
+        console.log(this.state.currentQuestion);
+    }
+    componentDidUpdate(preProps, prevState) {
+        const { currentQuestion } = this.state;
+        if (this.state.currentQuestion !== prevState.currentQuestion) {
+            this.setState(() => {
+                return {
+                    questions: QuizData[currentQuestion].question,
+                    options: QuizData[currentQuestion].option,
+                    answers: QuizData[currentQuestion].answer,
+
+                }
+            })
+        }
+    }
+checkAnswer = answer =>{
+    this.setState({
+        userAnswer:answer
+    })
+}
     render() {
-        const { questions, options } = this.state;
+        const { questions, options,currentQuestion,userAnswer } = this.state;
         return (
             <div>
                 <Layout>
-                    <Header>Quiz </Header>
+                    <Header><img src={require('./../images/quiz.png')} alt="logo" className="logo"></img></Header>
                     <Content>
-                        {questions}
-                        {options.map((opt) =>
-                            <p>{opt}</p>
+        <Title level={4}> {questions}</Title><span>{'Questions '+ currentQuestion +' out of '+QuizData.length}</span>
+                        {options.map((opt) => 
+                          <Button onClick={ ()=> this.checkAnswer(opt)} block size="large"  className={`option 
+                          ${userAnswer === opt ? "option" :null}
+                          `}>{ opt}</Button>
                         )}
-                        <Button type="primary">Primary</Button>
+                        <Button type="primary" onClick={this.nextQuestionHandler} >Primary</Button>
                     </Content>
 
 
-                    <Footer>Made by me....</Footer>
                 </Layout>
             </div>
 
