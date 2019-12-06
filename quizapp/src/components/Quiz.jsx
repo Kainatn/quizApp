@@ -34,20 +34,24 @@ export class Quiz extends Component {
     }
     //Score
     nextQuestionHandler = () => {
-        const { answers, userAnswer, score } = this.state;
+
 
         this.setState({
             currentQuestion: this.state.currentQuestion + 1
         })
         console.log(this.state.answers);
+        this.increaseScore();
+        console.log(this.state.score);
 
+    }
+    increaseScore = () => {
+        let { answers, userAnswer, score } = this.state;
         if (userAnswer === answers) {
             this.setState({
+        
                 score: score + 1
             })
         }
-        console.log(this.state.score);
-
     }
     // Update Questions
     componentDidUpdate(preProps, prevState) {
@@ -75,7 +79,6 @@ export class Quiz extends Component {
     finishHandler = () => {
         if (this.state.currentQuestion === QuizData.length - 1) {
             this.setState({
-
                 quizEnd: true
             })
         }
