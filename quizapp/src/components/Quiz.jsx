@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { QuizData } from './QuizData';
 import './Quiz.css';
-import { Layout, Button, Typography } from 'antd';
+import { Layout, Button, Typography, Modal } from 'antd';
 const { Header, Content } = Layout;
 const { Title } = Typography;
 export class Quiz extends Component {
@@ -9,10 +9,14 @@ export class Quiz extends Component {
     state = {
         userAnswer: null,
         currentQuestion: 0,
-        options: []
+        options: [],
+        score: 0,
+        quizDisable: true,
+        quizEnd: false,
+        visible: false
 
     }
-
+    // Load Quiz
     loadQuiz = () => {
         const { currentQuestion } = this.state;
         this.setState(() => {
@@ -28,17 +32,31 @@ export class Quiz extends Component {
     componentDidMount() {
         this.loadQuiz();
     }
+    //Score
     nextQuestionHandler = () => {
+        const { answers, userAnswer, score } = this.state;
+
         this.setState({
             currentQuestion: this.state.currentQuestion + 1
         })
-        console.log(this.state.currentQuestion);
+        console.log(this.state.answers);
+
+        if (userAnswer === answers) {
+            this.setState({
+                score: score + 1
+            })
+        }
+        console.log(this.state.score);
+
     }
+    // Update Questions
     componentDidUpdate(preProps, prevState) {
         const { currentQuestion } = this.state;
         if (this.state.currentQuestion !== prevState.currentQuestion) {
             this.setState(() => {
+
                 return {
+                    disabled: true,
                     questions: QuizData[currentQuestion].question,
                     options: QuizData[currentQuestion].option,
                     answers: QuizData[currentQuestion].answer,
@@ -47,25 +65,80 @@ export class Quiz extends Component {
             })
         }
     }
-checkAnswer = answer =>{
-    this.setState({
-        userAnswer:answer
-    })
-}
+    //Check Answer
+    checkAnswer = answers => {
+        this.setState({
+            userAnswer: answers,
+            quizDisable: false,
+        })
+    }
+    finishHandler = () => {
+        if (this.state.currentQuestion === QuizData.length - 1) {
+            this.setState({
+
+                quizEnd: true
+            })
+        }
+    }
+    //POPUP Window
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+
+        });
+        window.location.reload();
+
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+    //Ended
     render() {
-        const { questions, options,currentQuestion,userAnswer } = this.state;
+
+        const { questions, options, currentQuestion, userAnswer, quizEnd, score } = this.state;
+        // if (quizEnd) {
+        //     return (
+        //         <>
+        //             <Title level={4}> Quiz End</Title><p> {this.state.score}</p>
+        //         </>
+
+        //     )
+        // }
         return (
             <div>
                 <Layout>
                     <Header><img src={require('./../images/quiz.png')} alt="logo" className="logo"></img></Header>
                     <Content>
-        <Title level={4}> {questions}</Title><span>{'Questions '+ currentQuestion +' out of '+QuizData.length}</span>
-                        {options.map((opt) => 
-                          <Button onClick={ ()=> this.checkAnswer(opt)} block size="large"  className={`option 
-                          ${userAnswer === opt ? "option" :null}
-                          `}>{ opt}</Button>
+                        <Title level={4}> {questions}</Title><span>Questions   {currentQuestion + 1} out of {QuizData.length}</span>
+                        {options.map((option) =>
+                            <Button onClick={() => this.checkAnswer(option)} block size="large" className={`option 
+                          ${userAnswer === option ? "option" : null}
+                          `}>{option}</Button>
                         )}
-                        <Button type="primary" onClick={this.nextQuestionHandler} >Primary</Button>
+                        {currentQuestion < QuizData.length - 1 &&
+                            <Button type="primary" onClick={this.nextQuestionHandler} disabled={this.state.quizDisable} >Submit</Button>
+                        }
+                        {currentQuestion === QuizData.length - 1 && <Button type="primary" onClick={this.finishHandler} onClick={this.showModal} >Finish</Button>}
+
+                        <Modal
+                            title="You Score "
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                        >
+                            <p> {this.state.score}</p>
+                        </Modal>
                     </Content>
 
 
