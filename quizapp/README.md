@@ -3,8 +3,7 @@
 ###### Review Quiz : [Quiz](quizapp.kk2111436.now.sh)
 
 #### ScreenShot
-
-                               ![](src/images/11.png)
+![](src/images/11.png)
 
 ![](src/images/12.png)
 
