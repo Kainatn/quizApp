@@ -1,9 +1,11 @@
-# Quiz Application built with react
+
 
 
 <div align="center">
   
   ![](src/images/11.png)
+  
+  ## Quiz Application built with react
   
   ##### Review Quiz : [Quiz](quizapp.kk2111436.now.sh)
   
