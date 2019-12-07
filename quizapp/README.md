@@ -1,10 +1,15 @@
 # Quiz Application built with react
 
-###### Review Quiz : [Quiz](quizapp.kk2111436.now.sh)
 
-#### ScreenShot
+<div align="center">
 ![](src/images/11.png)
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  ##### Review Quiz : [Quiz](quizapp.kk2111436.now.sh)
+  </div>
+  
+  ---
+  
+This project was Ant Design with React js. You can play Easy quiz here and can see your score....
+
 
 ## Available Scripts
 
@@ -32,4 +37,4 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 ## ✍️ Authors <a name = "authors"></a>
-- [@kylelobo](https://github.com/kainatn) - Idea & Initial work
+- [@Kainat](https://github.com/kainatn) - Idea & Initial work
