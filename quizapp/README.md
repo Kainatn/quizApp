@@ -12,8 +12,10 @@
   </div>
   
   ---
+  ## About
   
-This project was Ant Design with React js. You can play Easy quiz here and can see your score....
+This project created with Ant Design and React js. You can play Easy quiz here and can see your score.
+This quiz game is designed to increase learning by requiring students to write a multiple-choice question..
 
 
 ## Available Scripts
