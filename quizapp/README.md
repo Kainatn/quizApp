@@ -7,7 +7,7 @@
   
   ## Quiz Application built with react
   
-  ##### Review Quiz : [Quiz](quizapp.kk2111436.now.sh/)
+  ##### Review Quiz : [Quiz](https://quizapp.kk2111436.now.sh/)
   
   </div>
   
