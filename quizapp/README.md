@@ -17,7 +17,15 @@
 This project created with Ant Design and React js. You can play Easy quiz here and can see your score.
 This quiz game is designed to increase learning by requiring students to write a multiple-choice question..
 
+##  Code Flow
 
+* Created a quiz component in App.jsx
+* Created  a Data.js 
+* Created  a function loadQuiz to fetch data from Data.js 
+* Created  a function to go on next question
+* Created  a function to increse scores of right answers
+
+ 
 ## Available Scripts
 
 In the project directory, you can run:
